@@ -14,6 +14,8 @@ import {
 
 import MuiAlert from "@material-ui//lab/Alert";
 
+import useInputHooks from "../hooks/useInputHooks";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -26,11 +28,21 @@ const useStyles = makeStyles((theme) => ({
 function Signup() {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
+//   const [email, setEmail] = useState("");
+
+//   const [userName, setUserName] = useState("");
+//   const [firstName, setFirstName] = useState("");
+//   const [lastName, setLastName] = useState("");
+
+//   const [password, setPassword] = useState("");
+
+const [email, setEmail] = useInputHooks();
+
+  const [userName, setUserName] = useInputHooks();
+  const [firstName, setFirstName] = useInputHooks();
+  const [lastName, setLastName] = useInputHooks();
+
+  const [password, setPassword] = useInputHooks();
 
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -56,7 +68,7 @@ function Signup() {
           autoComplete="on"
           onSubmit={handleOnSubmit}
         >
-          <FormControl error={null}>
+          {/* <FormControl error={null}>
             <InputLabel htmlFor="component-email">Email</InputLabel>
             <Input
               id="component-email"
@@ -64,15 +76,15 @@ function Signup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </FormControl>
+          </FormControl> */}
           <br />
           <FormControl error={null}>
-            <InputLabel htmlFor="component-username">User Name</InputLabel>
+            <InputLabel htmlFor="component-userName">User Name</InputLabel>
             <Input
               id="component-userName"
               name="userName"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => setUserName(e)}
             />
           </FormControl>
           <br />
@@ -82,7 +94,7 @@ function Signup() {
               id="component-firstName"
               name="firstName"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e)}
             />
           </FormControl>
           <br />
@@ -92,12 +104,12 @@ function Signup() {
               id="component-lastName"
               name="lastName"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e)}
             />
           </FormControl>
 
           <br />
-          <FormControl error={null}>
+          {/* <FormControl error={null}>
             <InputLabel htmlFor="component-password">Password</InputLabel>
             <Input
               type="password"
@@ -106,7 +118,7 @@ function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </FormControl>
+          </FormControl> */}
 
           <br />
           <Button variant="contained" color="primary" type="submit">
