@@ -4,6 +4,7 @@ import { deepOrange } from "@material-ui/core/colors";
 import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import MainRouter from "./MainRouter";
+import Spinner from './components/Spinner/Spinner';
 
 const theme = createMuiTheme({
   palette: {
@@ -24,9 +25,11 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+    <React.Suspense fallback={<Spinner/>}>
       <Router>
       <MainRouter />
       </Router>
+    </React.Suspense>
     </ThemeProvider>
   );
 }
