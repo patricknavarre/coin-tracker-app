@@ -15,88 +15,107 @@ import {
 import MuiAlert from "@material-ui//lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        width: 350,
-      },
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: 350,
     },
-  }));
+  },
+}));
 
 function Signup() {
+  const classes = useStyles();
 
-    const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
 
-    return <Grid
-            container 
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: "30vh"}}
-            >
-        <Grid item xs={12}>
-            <form className={classes.root} autoComplete="on">
-            <FormControl error={null}>
-                <InputLabel htmlFor="component-email">Email</InputLabel>
-                <Input 
-                id="component-email"
-                name="email"
-                value={""}
-                onChange={null}
-                />
-            </FormControl>
-            <br/>
-            <FormControl error={null}>
-                <InputLabel htmlFor="component-username">Username</InputLabel>
-                <Input 
-                id="component-username"
-                name="username"
-                value={""}
-                onChange={null}
-                />
-            </FormControl>
-            <br/>
-            <FormControl error={null}>
-                <InputLabel htmlFor="component-firstName">First Name</InputLabel>
-                <Input 
-                id="component-firstName"
-                name="firstName"
-                value={""}
-                onChange={null}
-                />
-            </FormControl>
-            <br/>
-            <FormControl error={null}>
-                <InputLabel htmlFor="component-lastName">Last Name</InputLabel>
-                <Input 
-                id="component-lastName"
-                name="lastName"
-                value={""}
-                onChange={null}
-                />
-            </FormControl>
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    console.log(email)
+    console.log(userName)
+    console.log(firstName)
+    console.log(lastName)
+    console.log(password)
+  }
 
-            <br/>
-            <FormControl error={null}>
-                <InputLabel htmlFor="component-password">Password</InputLabel>
-                <Input
-                type="password" 
-                id="component-password"
-                name="password"
-                value={""}
-                onChange={null}
-                />
-            </FormControl>
+  return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: "30vh" }}
+    >
+      <Grid item xs={12}>
+        <form
+          className={classes.root}
+          autoComplete="on"
+          onSubmit={handleOnSubmit}
+        >
+          <FormControl error={null}>
+            <InputLabel htmlFor="component-email">Email</InputLabel>
+            <Input
+              id="component-email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+          <br />
+          <FormControl error={null}>
+            <InputLabel htmlFor="component-username">User Name</InputLabel>
+            <Input
+              id="component-userName"
+              name="userName"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </FormControl>
+          <br />
+          <FormControl error={null}>
+            <InputLabel htmlFor="component-firstName">First Name</InputLabel>
+            <Input
+              id="component-firstName"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </FormControl>
+          <br />
+          <FormControl error={null}>
+            <InputLabel htmlFor="component-lastName">Last Name</InputLabel>
+            <Input
+              id="component-lastName"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </FormControl>
 
-            <br/>
-            <Button variant="contained" color="primary" type="submit">
+          <br />
+          <FormControl error={null}>
+            <InputLabel htmlFor="component-password">Password</InputLabel>
+            <Input
+              type="password"
+              id="component-password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+
+          <br />
+          <Button variant="contained" color="primary" type="submit">
             Submit
-            </Button>           
-            </form>
-        </Grid>
-
-            </Grid>
+          </Button>
+        </form>
+      </Grid>
+    </Grid>
+  );
 }
 
-export default Signup
+export default Signup;
