@@ -46,6 +46,53 @@ function Signup() {
                 onChange={null}
                 />
             </FormControl>
+            <br/>
+            <FormControl error={null}>
+                <InputLabel htmlFor="component-username">Username</InputLabel>
+                <Input 
+                id="component-username"
+                name="username"
+                value={""}
+                onChange={null}
+                />
+            </FormControl>
+            <br/>
+            <FormControl error={null}>
+                <InputLabel htmlFor="component-firstName">First Name</InputLabel>
+                <Input 
+                id="component-firstName"
+                name="firstName"
+                value={""}
+                onChange={null}
+                />
+            </FormControl>
+            <br/>
+            <FormControl error={null}>
+                <InputLabel htmlFor="component-lastName">Last Name</InputLabel>
+                <Input 
+                id="component-lastName"
+                name="lastName"
+                value={""}
+                onChange={null}
+                />
+            </FormControl>
+
+            <br/>
+            <FormControl error={null}>
+                <InputLabel htmlFor="component-password">Password</InputLabel>
+                <Input
+                type="password" 
+                id="component-password"
+                name="password"
+                value={""}
+                onChange={null}
+                />
+            </FormControl>
+
+            <br/>
+            <Button variant="contained" color="primary" type="submit">
+            Submit
+            </Button>           
             </form>
         </Grid>
 
