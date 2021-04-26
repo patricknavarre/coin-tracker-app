@@ -12,7 +12,7 @@ function MainRouter () {
         <Navbar />
         <Switch>
             <Route path="/login" component={Login} />
-            <Route path="sign-up" component={Signup} />
+            <Route path="/sign-up" component={Signup} />
             <Route path="/" component={Home} />
         </Switch>
         </>
