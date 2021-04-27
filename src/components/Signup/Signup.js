@@ -18,6 +18,8 @@ import useInputHooks from "../hooks/useInputHooks";
 
 import useEmailHooks from "../hooks/useEmailHooks";
 
+import usePasswordHooks from "../hooks/usePasswordHooks";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -66,7 +68,12 @@ function Signup() {
       errorLastNameMessage,
     ] = useInputHooks();
 
-  const [password, setPassword] = useInputHooks();
+  const [
+      password, 
+      setPassword,
+      inputPasswordError,
+      errorPasswordMessage,
+    ] = usePasswordHooks();
 
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -145,16 +152,19 @@ function Signup() {
           </FormControl>
 
           <br />
-          {/* <FormControl error={null}>
+          <FormControl error={inputPasswordError}>
             <InputLabel htmlFor="component-password">Password</InputLabel>
             <Input
               type="password"
               id="component-password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e)}
             />
-          </FormControl> */}
+             <FormHelperText id="component-error-text">
+            {inputPasswordError && errorPasswordMessage}
+            </FormHelperText>
+          </FormControl>
 
           <br />
           <Button variant="contained" color="primary" type="submit">
