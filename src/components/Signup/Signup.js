@@ -28,29 +28,46 @@ const useStyles = makeStyles((theme) => ({
 function Signup() {
   const classes = useStyles();
 
-//   const [email, setEmail] = useState("");
+  //   const [email, setEmail] = useState("");
 
-//   const [userName, setUserName] = useState("");
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
+  //   const [userName, setUserName] = useState("");
+  //   const [firstName, setFirstName] = useState("");
+  //   const [lastName, setLastName] = useState("");
 
-//   const [password, setPassword] = useState("");
+  //   const [password, setPassword] = useState("");
 
-const [email, setEmail] = useInputHooks();
+  const [email, setEmail] = useInputHooks();
 
-  const [userName, setUserName] = useInputHooks();
-  const [firstName, setFirstName] = useInputHooks();
-  const [lastName, setLastName] = useInputHooks();
+  const [
+      userName, 
+      setUserName, 
+      inputUserNameError, 
+      errorUserNameMessage
+    ] = useInputHooks();
+
+  const [
+      firstName, 
+      setFirstName,
+      inputFirstNameError,
+      errorFirstNameMessage,
+    ] = useInputHooks();
+
+  const [
+      lastName, 
+      setLastName,
+      inputLastNameError,
+      errorLastNameMessage,
+    ] = useInputHooks();
 
   const [password, setPassword] = useInputHooks();
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    console.log(email)
-    console.log(userName)
-    console.log(firstName)
-    console.log(lastName)
-    console.log(password)
+    console.log(email);
+    console.log(userName);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(password);
   }
 
   return (
@@ -78,7 +95,7 @@ const [email, setEmail] = useInputHooks();
             />
           </FormControl> */}
           <br />
-          <FormControl error={null}>
+          <FormControl error={inputUserNameError}>
             <InputLabel htmlFor="component-userName">User Name</InputLabel>
             <Input
               id="component-userName"
@@ -86,26 +103,35 @@ const [email, setEmail] = useInputHooks();
               value={userName}
               onChange={(e) => setUserName(e)}
             />
+            <FormHelperText id="component-error-text">
+                {inputUserNameError && errorUserNameMessage}
+            </FormHelperText>
           </FormControl>
           <br />
-          <FormControl error={null}>
+          <FormControl error={inputFirstNameError}>
             <InputLabel htmlFor="component-firstName">First Name</InputLabel>
             <Input
               id="component-firstName"
-              name="firstName"
+              name="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e)}
             />
+            <FormHelperText id="component-error-text">
+                {inputFirstNameError && errorFirstNameMessage}
+            </FormHelperText>
           </FormControl>
           <br />
           <FormControl error={null}>
             <InputLabel htmlFor="component-lastName">Last Name</InputLabel>
             <Input
               id="component-lastName"
-              name="lastName"
+              name="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e)}
             />
+            <FormHelperText id="component-error-text">
+
+            </FormHelperText>
           </FormControl>
 
           <br />
