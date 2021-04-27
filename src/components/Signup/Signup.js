@@ -16,6 +16,8 @@ import MuiAlert from "@material-ui//lab/Alert";
 
 import useInputHooks from "../hooks/useInputHooks";
 
+import useEmailHooks from "../hooks/useEmailHooks";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -36,7 +38,12 @@ function Signup() {
 
   //   const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useInputHooks();
+  const [
+      email, 
+      setEmail,
+      inputEmailError,
+      errorEmailMessage
+    ] = useEmailHooks();
 
   const [
       userName, 
@@ -85,15 +92,18 @@ function Signup() {
           autoComplete="on"
           onSubmit={handleOnSubmit}
         >
-          {/* <FormControl error={null}>
+          <FormControl error={inputEmailError}>
             <InputLabel htmlFor="component-email">Email</InputLabel>
             <Input
               id="component-email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e)}
             />
-          </FormControl> */}
+            <FormHelperText id="component-error-text">
+                {inputEmailError && errorEmailMessage}
+            </FormHelperText>
+          </FormControl>
           <br />
           <FormControl error={inputUserNameError}>
             <InputLabel htmlFor="component-userName">User Name</InputLabel>
@@ -130,7 +140,7 @@ function Signup() {
               onChange={(e) => setLastName(e)}
             />
             <FormHelperText id="component-error-text">
-
+            {inputLastNameError && errorLastNameMessage}
             </FormHelperText>
           </FormControl>
 
