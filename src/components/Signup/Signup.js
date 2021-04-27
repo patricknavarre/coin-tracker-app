@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import jwtDecode from "jwt-decode"
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -42,46 +45,60 @@ function Signup() {
 
   const [
       email, 
-      setEmail,
-      inputEmailError,
+      setEmail, 
+      inputEmailError, 
       errorEmailMessage
     ] = useEmailHooks();
 
   const [
-      userName, 
-      setUserName, 
-      inputUserNameError, 
-      errorUserNameMessage
-    ] = useInputHooks();
+    userName,
+    setUserName,
+    inputUserNameError,
+    errorUserNameMessage,
+  ] = useInputHooks();
 
   const [
-      firstName, 
-      setFirstName,
-      inputFirstNameError,
-      errorFirstNameMessage,
-    ] = useInputHooks();
+    firstName,
+    setFirstName,
+    inputFirstNameError,
+    errorFirstNameMessage,
+  ] = useInputHooks();
 
   const [
-      lastName, 
-      setLastName,
-      inputLastNameError,
-      errorLastNameMessage,
-    ] = useInputHooks();
+    lastName,
+    setLastName,
+    inputLastNameError,
+    errorLastNameMessage,
+  ] = useInputHooks();
 
   const [
-      password, 
-      setPassword,
-      inputPasswordError,
-      errorPasswordMessage,
-    ] = usePasswordHooks();
+    password,
+    setPassword,
+    inputPasswordError,
+    errorPasswordMessage,
+  ] = usePasswordHooks();
 
-  function handleOnSubmit(e) {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(userName);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(password);
+
+    try {
+        let payload = await axios.post("/users/sign-up", {
+            email,
+            userName,
+            firstName,
+            lastName,
+            password,
+        });
+        console.log(payload);
+    } catch(e) {
+        console.log(e);
+    }
+    
+    // console.log(email);
+    // console.log(userName);
+    // console.log(firstName);
+    // console.log(lastName);
+    // console.log(password);
   }
 
   return (
@@ -108,7 +125,7 @@ function Signup() {
               onChange={(e) => setEmail(e)}
             />
             <FormHelperText id="component-error-text">
-                {inputEmailError && errorEmailMessage}
+              {inputEmailError && errorEmailMessage}
             </FormHelperText>
           </FormControl>
           <br />
@@ -121,7 +138,7 @@ function Signup() {
               onChange={(e) => setUserName(e)}
             />
             <FormHelperText id="component-error-text">
-                {inputUserNameError && errorUserNameMessage}
+              {inputUserNameError && errorUserNameMessage}
             </FormHelperText>
           </FormControl>
           <br />
@@ -134,7 +151,7 @@ function Signup() {
               onChange={(e) => setFirstName(e)}
             />
             <FormHelperText id="component-error-text">
-                {inputFirstNameError && errorFirstNameMessage}
+              {inputFirstNameError && errorFirstNameMessage}
             </FormHelperText>
           </FormControl>
           <br />
@@ -147,7 +164,7 @@ function Signup() {
               onChange={(e) => setLastName(e)}
             />
             <FormHelperText id="component-error-text">
-            {inputLastNameError && errorLastNameMessage}
+              {inputLastNameError && errorLastNameMessage}
             </FormHelperText>
           </FormControl>
 
@@ -161,8 +178,8 @@ function Signup() {
               value={password}
               onChange={(e) => setPassword(e)}
             />
-             <FormHelperText id="component-error-text">
-            {inputPasswordError && errorPasswordMessage}
+            <FormHelperText id="component-error-text">
+              {inputPasswordError && errorPasswordMessage}
             </FormHelperText>
           </FormControl>
 
