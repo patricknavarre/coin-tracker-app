@@ -6,6 +6,9 @@ import React from "react";
 import MainRouter from "./MainRouter";
 import Spinner from './components/Spinner/Spinner';
 import AuthContextComponent from "./components/context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -29,6 +32,7 @@ function App() {
     <ThemeProvider theme={theme}>
     <React.Suspense fallback={<Spinner/>}>
       <Router>
+      <ToastContainer />
       <MainRouter />
       </Router>
     </React.Suspense>
