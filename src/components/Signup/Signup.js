@@ -85,12 +85,8 @@ function Signup() {
 
   const { dispatch } = useContext(AuthContext);
 
-function handleSignup() {
-  
-}
 
-
-  const handleOnSubmit = async (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
     
     console.log(email);
@@ -107,14 +103,14 @@ function handleSignup() {
             password,
         });
         toast.success("Welcome to the club!  Please go Login!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
         console.log(payload);
     } catch(e) {
         console.log(e);
@@ -160,7 +156,7 @@ function handleSignup() {
         <form
           className={classes.root}
           autoComplete="on"
-          onSubmit={handleOnSubmit}
+          onSubmit={handleSignupSubmit}
         >
           <FormControl error={inputEmailError}>
             <InputLabel htmlFor="component-email">Email</InputLabel>
