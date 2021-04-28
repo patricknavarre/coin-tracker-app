@@ -25,6 +25,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
+    <AuthContextComponent>
     <ThemeProvider theme={theme}>
     <React.Suspense fallback={<Spinner/>}>
       <Router>
@@ -32,6 +33,7 @@ function App() {
       </Router>
     </React.Suspense>
     </ThemeProvider>
+    </AuthContextComponent>
   );
 }
 

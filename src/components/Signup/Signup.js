@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import jwtDecode from "jwt-decode"
+import { toast } from 'react-toastify';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { AuthContext } from "../context/AuthContext";
@@ -105,11 +106,21 @@ function handleSignup() {
             lastName,
             password,
         });
+        toast.success("Welcome to the club!  Please go Login!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         console.log(payload);
     } catch(e) {
         console.log(e);
     }  
   }
+
   useEffect(() => {
     if (
       inputUserNameError === false &&
