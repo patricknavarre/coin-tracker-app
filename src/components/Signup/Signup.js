@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import jwtDecode from "jwt-decode"
 import { makeStyles } from "@material-ui/core/styles";
+
+import { AuthContext } from "../context/AuthContext";
 
 import {
   FormControl,
@@ -43,6 +45,8 @@ function Signup() {
 
   //   const [password, setPassword] = useState("");
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
   const [
       email, 
       setEmail, 
@@ -78,11 +82,23 @@ function Signup() {
     errorPasswordMessage,
   ] = usePasswordHooks();
 
+  const { dispatch } = useContext(AuthContext);
+
+function handleSignup() {
+  
+}
+
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
+    
+    console.log(email);
+    console.log(userName);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(password);
     try {
-        let payload = await axios.post("/users/sign-up", {
+        let payload = await axios.post("http://localhost:3001/users/sign-up", {
             email,
             userName,
             firstName,
@@ -92,14 +108,33 @@ function Signup() {
         console.log(payload);
     } catch(e) {
         console.log(e);
-    }
-    
-    // console.log(email);
-    // console.log(userName);
-    // console.log(firstName);
-    // console.log(lastName);
-    // console.log(password);
+    }  
   }
+  useEffect(() => {
+    if (
+      inputUserNameError === false &&
+      inputFirstNameError === false &&
+      inputLastNameError === false &&
+      inputEmailError === false &&
+      inputPasswordError === false
+    ) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+      return;
+    }
+    if (
+      userName.length === 0 ||
+      firstName.length === 0 ||
+      email.length === 0 ||
+      lastName.length === 0 ||
+      password.length === 0
+    ) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, [userName, email, firstName, lastName, password]);
 
   return (
     <Grid
@@ -184,7 +219,7 @@ function Signup() {
           </FormControl>
 
           <br />
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" disabled={isButtonDisabled}>
             Submit
           </Button>
         </form>

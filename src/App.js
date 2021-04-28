@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import MainRouter from "./MainRouter";
 import Spinner from './components/Spinner/Spinner';
+import AuthContextComponent from "./components/context/AuthContext";
 
 const theme = createMuiTheme({
   palette: {
