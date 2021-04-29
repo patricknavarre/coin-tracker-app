@@ -10,11 +10,11 @@ const initialState = {
 function reducerFunc(state, action) {
     switch(action.type) {
         case "LOGIN":
+            console.log(action)
             return {
                 isAuth: true,
                 user: {
-                    email: action.user.email,
-                    password: action.user.password
+                    email: action.user,
                 }
             }
             case "LOGOUT":

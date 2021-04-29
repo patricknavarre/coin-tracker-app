@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
-
+import AuthContextComponent, { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
-import "./Navbar.css"
+import "./Navbar.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +16,15 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
+
+  const { dispatch, state } = useContext(AuthContext);
+
+  const handleUserLogout = () => {
+    localStorage.removeItem("jwtToken");
+    dispatch({ type: "LOGOUT" });
+  };
+
+  console.log(state);
 
   return (
     <div className={classes.root}>
@@ -31,17 +40,35 @@ function Navbar() {
             className="nav-link"
             activeClassName="active-nav-link"
           >
-            <Button color="inherit">Login</Button>
+            <Button color="inherit">
+              {/* {state.isAuth ? state.user.email : "Login"} */}
+              {state.isAuth ? state.user.email : "Login"}
+            </Button>
           </NavLink>
 
-          <NavLink
-            to="/sign-up"
-            exact
-            className="nav-link"
-            activeClassName="active-nav-link"
-          >
-            <Button color="inherit">Sign Up</Button>
-          </NavLink>
+          {state.isAuth ? (
+            <NavLink
+              to="/sign-up"
+              exact
+              className="nav-link"
+              activeClassName="active-nav-link"
+            >
+              {" "}
+              <Button onClick={handleUserLogout} color="inherit">
+                Logout
+              </Button>{" "}
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/sign-up"
+              exact
+              className="nav-link"
+              activeClassName="active-nav-link"
+            >
+              {" "}
+              <Button color="inherit">Signup</Button>{" "}
+            </NavLink>
+          )}
         </Toolbar>
       </AppBar>
     </div>
