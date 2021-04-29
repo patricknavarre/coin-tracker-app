@@ -56,11 +56,6 @@ function Login(props) {
 
   const handleLoginSubmit = async (e) => {
 
-    // setUser({
-    //   email: value,
-    //   password: value,
-    // })
-
     e.preventDefault();
     try {
       let payload = await axios.post("http://localhost:3001/users/login", {
@@ -73,6 +68,7 @@ function Login(props) {
       let decodedJwtToken = jwtDecode(payload.data.jwtToken);
 
       dispatch({ type: "LOGIN", user: decodedJwtToken.email })
+      props.history.push("/coin-home");
       // console.log(decodedJwtToken);
     } catch (e) {
       console.log(e.message);
@@ -87,6 +83,7 @@ function Login(props) {
       let decodedJwtToken = jwtDecode(token);
 
       dispatch({ type: "LOGIN", user: decodedJwtToken.email })
+      props.history.push("/coin-home");
       console.log("testingtesting")
     } else {
       props.history.push("/login");
