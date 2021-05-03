@@ -84,7 +84,6 @@ function Login(props) {
 
       dispatch({ type: "LOGIN", user: decodedJwtToken.email })
       props.history.push("/coin-home");
-      console.log("testingtesting")
     } else {
       props.history.push("/login");
       return

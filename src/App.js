@@ -1,6 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { deepOrange } from "@material-ui/core/colors";
+import { blueGrey } from "@material-ui/core/colors";
 import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import MainRouter from "./MainRouter";
@@ -13,7 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: deepOrange["A400"],
+      // main: deepOrange["A200"],
+      main: blueGrey["700"],
       contrastText: "#fff",
     },
     secondary: {

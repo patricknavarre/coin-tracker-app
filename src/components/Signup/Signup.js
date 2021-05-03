@@ -94,6 +94,18 @@ function Signup() {
     console.log(firstName);
     console.log(lastName);
     console.log(password);
+
+    if (inputPasswordError) {
+      toast.error("Please fix your password!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    }
     try {
         let payload = await axios.post("http://localhost:3001/users/sign-up", {
             email,
@@ -113,6 +125,7 @@ function Signup() {
       })
         console.log(payload);
     } catch(e) {
+
         console.log(e);
     }  
   }
