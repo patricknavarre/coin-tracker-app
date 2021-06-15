@@ -11,12 +11,17 @@ import {
   CircularProgress,
   Snackbar,
   Grid,
+  Select,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui//lab/Alert";
 import Spinner from "../Spinner/Spinner";
 import { CenterFocusStrong } from "@material-ui/icons";
-const API_KEY =
-  "aa75e637f49f24f3346532322541fcf387f2092fff5040e37036a222edc9cba0";
+
+// will load files from the .env file
+require('dotenv').config();
+
+const API_KEY = process.env.API_KEY
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -33,66 +38,35 @@ function AuthCoinHome() {
   const classes = useStyles();
   const [searchInput, setSearchInput] = useState("");
   const [initialSearchArray, setInitialSearchArray] = useState([]);
+  const [searchArray, setSearchArray] = useState([]);
+  const [dropdownMenu, setDropdownMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     getInitialCryptoData();
   }, []);
+
   async function getInitialCryptoData() {
     setIsLoading(true);
+
     try {
       const result = await axios.get(
-        `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=40&tsym=USD&apiKey=${API_KEY}`
+        `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=30&tsym=USD&apiKey=${API_KEY}`
       );
       const crytoData = result.data.Data;
       setInitialSearchArray(crytoData);
+      setDropdownMenu(crytoData);
+      setSearchArray(crytoData);
       setIsLoading(false);
     } catch (e) {
       console.log(e);
       setIsLoading(false);
     }
   }
-  // function handleSearchCoinInputClick (event) {
-  //   console.log(101);
-  //   console.log(coinSearchInput);
-  //   if (coinSearchInput.length === 0) {
-  //     setSearch({
-  //       isError: true,
-  //       errorMessage: "Sorry, please enter a coin",
-  //       coinSearchInput: "",
-  //     });
-  //     return;
-  //   }
-  //   ({
-  //     isLoading: true,
-  //   });
-  //   try {
-  //     const result = {
-    // https://min-api.cryptocompare.com/data/price?fsym=${searchInput}&tsyms=USD,JPY,EUR
-  //       },
-  //     };
-  //     let payload = await axios.request(result);
-  //     setSearchInput({  
-  //       coinArray: payload.data.data,
-  //       isLoading: false,
-  //       coinInput: "",
-  //     });
-  //     console.log(payload.data.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  function handleOnSearchInput (e) {
-    // e.preventDefault();
-    // console.log(e)
-
-  }
-
   function showCryptoData() {
-    return initialSearchArray.map((item) => {
-      console.log(item);
+    return searchArray.map((item, index) => {
       return (
-        <Grid item xs={4}>
+        <Grid item xs={4} key={index}>
           <img
             src={`https://www.cryptocompare.com/${item.CoinInfo.ImageUrl}`}
           />
@@ -105,39 +79,71 @@ function AuthCoinHome() {
       );
     });
   }
+  function selectCoinOnChange(e) {
+    setSearchInput(e.target.value);
+    console.log(e.target.value);
+    let selectedCoin = initialSearchArray.filter(
+      (item) => e.target.value === item.CoinInfo.FullName
+    );
+    console.log(selectedCoin);
+    setSearchArray(selectedCoin);
+  }
+  function showAllCoins() {
+    // console.log("=-===");
+    setSearchArray(initialSearchArray);
+  }
   return (
-    <Grid item xs={12}
-    container
-    spacing={4}
-    direction="row"
-    alignItems="center"
-    justify="center"
-    style={{marginTop: "10px" }}>
-     <InputLabel style={{marginTop: "10px" }} htmlFor="component-searchInput">Search</InputLabel>
-      <Input
+    <div>
+      <div style={{ textAlign: "center", marginTop: "15px" }}>
+        <Button variant="outlined" onClick={showAllCoins}>
+          Show all coins
+        </Button>
+      </div>
+      <Grid
+        item
+        xs={12}
+        container
+        spacing={4}
+        direction="row"
+        alignItems="center"
+        justify="center"
         style={{ marginTop: "10px" }}
-        id="component-searchInput"
-        name="search"
-        value={searchInput}
-        onChange={(e) => handleOnSearchInput(e)}
-      />
-      <Button variant="contained" color="primary" type="submit">
-        Submit
-      </Button>
-     
-    <Grid item xs={12}
-      container
-      spacing={4}
-      direction="row"
-      alignItems="center"
-      justify="center"
-      style={{ minHeight: "30vh" }}
-    >
-     
-      {isLoading ? <Spinner /> : showCryptoData()}
-    </Grid>
-
-    </Grid>
+      >
+        <InputLabel htmlFor="age-native-simple">Select Coin</InputLabel>
+        <Select
+          native
+          value={searchInput}
+          onChange={selectCoinOnChange}
+          inputProps={{
+            name: "age",
+            id: "age-native-simple",
+          }}
+        >
+          {dropdownMenu.map((item) => {
+            return (
+              <option
+                value={item.CoinInfo.FullName}
+                key={item.CoinInfo.FullName}
+              >
+                {item.CoinInfo.FullName}
+              </option>
+            );
+          })}
+        </Select>
+        <Grid
+          item
+          xs={12}
+          container
+          spacing={4}
+          direction="row"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "30vh" }}
+        >
+          {isLoading ? <Spinner /> : showCryptoData()}
+        </Grid>
+      </Grid>
+    </div>
   );
 }
 export default AuthCoinHome;

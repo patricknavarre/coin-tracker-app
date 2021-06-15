@@ -58,7 +58,7 @@ function Login(props) {
 
     e.preventDefault();
     try {
-      let payload = await axios.post("http://localhost:3001/users/login", {
+      let payload = await axios.post("api/users/login", {
         email,
         password,
       });

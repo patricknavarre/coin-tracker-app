@@ -107,7 +107,7 @@ function Signup() {
         });
     }
     try {
-        let payload = await axios.post("http://localhost:3001/users/sign-up", {
+        let payload = await axios.post("api/users/sign-up", {
             email,
             userName,
             firstName,
