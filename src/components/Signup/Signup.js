@@ -107,13 +107,14 @@ function Signup() {
         });
     }
     try {
-        let payload = await axios.post("api/users/sign-up", {
+        let payload = await axios.post("/api/users/sign-up", {
             email,
             userName,
             firstName,
             lastName,
             password,
         });
+        console.log("-----117")
         toast.success("Welcome to the club!  Please go Login!", {
         position: "top-center",
         autoClose: 3000,
